@@ -1,12 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-
-const mockClients = [
-  { id: 1, name: "Acme Corp", email: "contact@acme.com", status: "Active", phone: "+1 555-0101", company: "Acme Corporation", notes: "Long-term client, monthly retainer." },
-  { id: 2, name: "Globex Inc", email: "info@globex.com", status: "Active", phone: "+1 555-0102", company: "Globex Inc.", notes: "Onboarded in 2025." },
-  { id: 3, name: "Initech", email: "hello@initech.com", status: "Pending", phone: "+1 555-0103", company: "Initech LLC", notes: "Contract under review." },
-  { id: 4, name: "Umbrella Co", email: "team@umbrella.com", status: "Inactive", phone: "+1 555-0104", company: "Umbrella Corporation", notes: "Paused since Q1." },
-];
+import { createClient } from "@/lib/supabase/server";
+import EditClientButton from "../EditClientButton";
 
 function StatusBadge({ status }: { status: string }) {
   const colors: Record<string, string> = {
@@ -28,11 +23,18 @@ export default async function ClientDetailsPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const client = mockClients.find((c) => c.id === Number(id));
+  const supabase = await createClient();
+
+  const [{ data: client }, { data: claims }] = await Promise.all([
+    supabase.from("clients").select("*").eq("id", id).single(),
+    supabase.auth.getClaims(),
+  ]);
 
   if (!client) {
     notFound();
   }
+
+  const isAdmin = claims?.claims?.app_metadata?.role === "admin";
 
   return (
     <div>
@@ -43,6 +45,10 @@ export default async function ClientDetailsPage({
       <div className="mt-4 flex items-center justify-between">
         <h1 className="text-2xl font-bold">{client.name}</h1>
         <StatusBadge status={client.status} />
+      </div>
+
+      <div className="mt-2">
+        <EditClientButton clientId={client.id} isAdmin={isAdmin} />
       </div>
 
       <div className="mt-6 rounded-lg border p-6 space-y-3">

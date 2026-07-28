@@ -37,7 +37,7 @@ function Toggle({
 
 export default function SettingsPage() {
   const [emailNotifications, setEmailNotifications] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
+  const [newClientAlerts, setNewClientAlerts] = useState(false);
   const [newsletter, setNewsletter] = useState(false);
 
   return (
@@ -52,10 +52,10 @@ export default function SettingsPage() {
           onChange={() => setEmailNotifications(!emailNotifications)}
         />
         <Toggle
-          label="Dark mode"
-          description="Switch the interface to a dark theme"
-          enabled={darkMode}
-          onChange={() => setDarkMode(!darkMode)}
+          label="New client alerts"
+          description="Get notified when a new client is added"
+          enabled={newClientAlerts}
+          onChange={() => setNewClientAlerts(!newClientAlerts)}
         />
         <Toggle
           label="Newsletter"

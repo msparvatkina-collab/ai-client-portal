@@ -6,8 +6,12 @@ import Sidebar from "./Sidebar";
 
 export default function MainLayout({
   children,
+  email,
+  onSignOut,
 }: {
   children: React.ReactNode;
+  email?: string;
+  onSignOut: () => void;
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
@@ -16,7 +20,11 @@ export default function MainLayout({
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <div className="flex-1">
-        <Navbar onMenuClick={() => { console.log("клик сработал"); setIsSidebarOpen(true); }} />
+        <Navbar
+          onMenuClick={() => setIsSidebarOpen(true)}
+          email={email}
+          onSignOut={onSignOut}
+        />
         <main className="p-6 max-w-3xl">
           {children}
         </main>

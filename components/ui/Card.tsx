@@ -10,4 +10,4 @@ export default function Card({ title, value }: CardProps) {
       <p className="mt-2">{value}</p>
     </div>
   );
-}
+} 

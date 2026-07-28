@@ -1,9 +1,15 @@
 import Link from "next/link";
-import Card from "../../components/ui/Card";
+import Card from "@/components/ui/Card";
+import { createClient } from "@/lib/supabase/server";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const supabase = await createClient();
+  const { count: clientCount } = await supabase
+    .from("clients")
+    .select("*", { count: "exact", head: true });
+
   const stats = [
-    { title: "Clients", value: "24", href: "/clients" },
+    { title: "Clients", value: String(clientCount ?? 0), href: "/clients" },
     { title: "Active Projects", value: "8" },
     { title: "Tasks", value: "15" },
     { title: "Revenue", value: "$12,400" },
