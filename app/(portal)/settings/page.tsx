@@ -20,6 +20,9 @@ function Toggle({
         <p className="text-sm text-gray-500">{description}</p>
       </div>
       <button
+        role="switch"
+        aria-checked={enabled}
+        aria-label={label}
         onClick={onChange}
         className={`flex h-6 w-11 shrink-0 items-center rounded-full p-0.5 transition-colors ${
           enabled ? "bg-blue-600" : "bg-gray-300"

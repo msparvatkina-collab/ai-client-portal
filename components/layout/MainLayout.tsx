@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
@@ -15,6 +15,17 @@ export default function MainLayout({
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  useEffect(() => {
+    if (!isSidebarOpen) return;
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setIsSidebarOpen(false);
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isSidebarOpen]);
+
   return (
     <div className="min-h-screen flex">
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
@@ -25,7 +36,7 @@ export default function MainLayout({
           email={email}
           onSignOut={onSignOut}
         />
-        <main className="p-6 max-w-3xl">
+        <main className="p-6 max-w-6xl">
           {children}
         </main>
       </div>

@@ -18,9 +18,9 @@ export default function Navbar({
           ☰
         </button>
 
-        <h1 className="text-xl font-semibold">
-          Сlient Portal
-        </h1>
+        <span className="text-xl font-semibold">
+          Client Portal
+        </span>
       </div>
 
       <form action={onSignOut} className="flex items-center gap-3">
