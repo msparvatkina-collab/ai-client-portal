@@ -2,12 +2,10 @@ export default function Navbar({
   onMenuClick,
   email,
   onSignOut,
-  isSidebarOpen,
 }: {
   onMenuClick: () => void;
   email?: string;
   onSignOut: () => void;
-  isSidebarOpen: boolean;
 }) {
   return (
     <header className="flex h-16 min-w-0 items-center justify-between gap-4 border-b px-4 sm:px-6">
@@ -27,11 +25,7 @@ export default function Navbar({
 
       <form action={onSignOut} className="flex min-w-0 items-center gap-3">
         {email && (
-          <span
-            className={`truncate text-sm text-gray-500 ${
-              isSidebarOpen ? "hidden md:inline" : ""
-            }`}
-          >
+          <span className="hidden truncate text-sm text-gray-500 sm:inline">
             {email}
           </span>
         )}

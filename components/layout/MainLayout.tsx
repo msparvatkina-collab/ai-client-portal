@@ -43,7 +43,6 @@ export default function MainLayout({
           onMenuClick={() => setIsSidebarOpen(true)}
           email={email}
           onSignOut={onSignOut}
-          isSidebarOpen={isSidebarOpen}
         />
         <main className="max-w-6xl p-6">{children}</main>
       </div>

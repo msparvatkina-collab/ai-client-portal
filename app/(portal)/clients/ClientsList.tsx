@@ -124,12 +124,12 @@ export default function ClientsList({
           placeholder='Ask AI, e.g. "clients with pending status"'
           value={aiQuery}
           onChange={(e) => setAiQuery(e.target.value)}
-          className="flex-1 rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
+          className="min-w-0 flex-1 rounded-lg border px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
           type="submit"
           disabled={aiLoading}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+          className="shrink-0 whitespace-nowrap rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:opacity-50"
         >
           {aiLoading ? "Thinking..." : "Ask AI"}
         </button>
@@ -137,7 +137,7 @@ export default function ClientsList({
           <button
             type="button"
             onClick={clearAiSearch}
-            className="rounded-lg border px-3 py-2 text-sm hover:bg-gray-50"
+            className="shrink-0 rounded-lg border px-3 py-2 text-sm hover:bg-gray-50"
           >
             Clear
           </button>
