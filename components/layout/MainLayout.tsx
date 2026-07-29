@@ -27,18 +27,25 @@ export default function MainLayout({
   }, [isSidebarOpen]);
 
   return (
-    <div className="min-h-screen flex">
+    <div className="flex min-h-screen">
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
-      <div className="flex-1">
+      <div className="relative min-w-0 flex-1">
+        {isSidebarOpen && (
+          <div
+            className="absolute inset-0 z-30 md:hidden"
+            onClick={() => setIsSidebarOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+
         <Navbar
           onMenuClick={() => setIsSidebarOpen(true)}
           email={email}
           onSignOut={onSignOut}
+          isSidebarOpen={isSidebarOpen}
         />
-        <main className="p-6 max-w-6xl">
-          {children}
-        </main>
+        <main className="max-w-6xl p-6">{children}</main>
       </div>
     </div>
   );
